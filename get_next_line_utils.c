@@ -6,12 +6,19 @@
 /*   By: nseon <nseon@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:22:29 by nseon             #+#    #+#             */
-/*   Updated: 2024/12/10 11:48:33 by nseon            ###   ########.fr       */
+/*   Updated: 2024/12/10 15:58:34 by nseon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
+
+char	*free_all(char **str)
+{
+	free(*str);
+	*str = NULL;
+	return (NULL);
+}
 
 int	ft_strlen(char *s)
 {
@@ -41,14 +48,41 @@ char	*ft_strnjoin(char *s1, char *s2, int n)
 		i++;
 	}
 	j = 0;
-	while (s2 && s2[j] && j < n)
+	while (j <= n && s2 && s2[j])
 	{
 		tab[i] = s2[j];
 		i++;
 		j++;
 	}
 	tab[i] = '\0';
-	free(s1);
+	free_all(&s2);
+	return (tab);
+}
+
+char	*ft_strnjoin2(char *s1, char *s2, int n)
+{
+	char	*tab;
+	int		i;
+	int		j;
+
+	i = 0;
+	tab = malloc((ft_strlen(s1) + n + 1) * sizeof (char));
+	if (tab == NULL)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		tab[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (j < n)
+	{
+		tab[i] = s2[j];
+		i++;
+		j++;
+	}
+	tab[i] = '\0';
+	free_all(&s1);
 	return (tab);
 }
 
@@ -60,13 +94,13 @@ char	*ft_substr(char *s, int start)
 	i = 0;
 	tab = malloc((ft_strlen(s) - start + 2) * sizeof (char));
 	if (tab == NULL)
-		return (free(s), NULL);
+		return (free_all(&s));
 	while (i + start < ft_strlen(s) && s[i + start])
 	{
 		tab[i] = s[i + start];
 		i++;
 	}
 	tab[i] = '\0';
-	free(s);
+	free_all(&s);
 	return (tab);
 }
