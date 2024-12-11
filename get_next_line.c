@@ -6,7 +6,7 @@
 /*   By: nseon <nseon@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:14:35 by nseon             #+#    #+#             */
-/*   Updated: 2024/12/10 16:10:09 by nseon            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:39:47 by nseon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,26 @@
 char	*line(int i, char **left)
 {
 	char	*str;
+	int		j;
 
-	str = ft_strnjoin(NULL, *left, i);
-	*left = ft_substr(*left, i + 1);
+	j = 0;
+	str = malloc((ft_strlen(*left) + 2) * sizeof (char));
+	if (!str)
+	{
+		null_free(&str);
+		return (null_free(left));
+	}
+	while (j <= i)
+	{
+		str[j] = (*left)[j];
+		j++;
+	}
+	str[j] = '\0';
+	*left = ft_substr(left, i + 1);
 	if (!*left || !str)
 	{
-		free_all(&str);
-		free_all(left);
+		null_free(&str);
+		return (null_free(left));
 	}
 	return (str);
 }
@@ -42,10 +55,10 @@ char	*get_next_line(int fd)
 		i = 0;
 		nb = read(fd, buff, BUFFER_SIZE);
 		if (nb == -1 || (nb == 0 && (!left || (left && left[0] == '\0'))))
-			return (free_all(&left));
-		left = ft_strnjoin2(left, buff, nb);
+			return (null_free(&left));
+		left = ft_strnjoin(&left, buff, nb);
 		if (!left)
-			return (free_all(&left));
+			return (0);
 		while (left[i])
 		{
 			if (left[i] == '\n')
@@ -56,19 +69,24 @@ char	*get_next_line(int fd)
 	return (line(i, &left));
 }
 
-#include <fcntl.h>
+// #include <fcntl.h>
 
-int	main()
-{
-	int	fd;
-	int	heecks;
+// int	main()
+// {
+// 	int	fd;
+// 	int	heecks;
+// 	char	*tab;
 
-	fd = open("text.txt", O_RDONLY);
-	heecks = 0;
-	while (heecks < 10)
-	{
-		printf("%s", get_next_line(fd));
-		heecks++;
-	}
-	return (0);
-}
+// 	fd = open("t.txt", O_RDONLY);
+// 	heecks = 0;
+// 	tab = get_next_line(fd);
+// 	while (tab)
+// 	{
+// 		printf("%s", tab);
+// 		fflush(stdout);
+// 		free(tab);
+// 		tab = get_next_line(fd);
+// 	}
+// 	free(tab);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: nseon <nseon@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:58 by nseon             #+#    #+#             */
-/*   Updated: 2024/12/10 16:09:57 by nseon            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:32:18 by nseon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 #  define BUFFER_SIZE 100
 # endif
 
-int		ft_strlen(const char *s);
-char	*ft_strnjoin(char *s1, char *s2, int n);
-char	*ft_strnjoin2(char *s1, char *s2, int n);
+int		ft_strlen(char *s);
+char	*ft_strnjoin(char **s1, char *s2, int n);
 char	*get_next_line(int fd);
-char	*ft_substr(char const *s, unsigned int start);
-char	*free_all(char **ptr);
+char	*ft_substr(char **s, int start);
+char	*null_free(char **str);
 
 #endif
