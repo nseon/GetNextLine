@@ -6,7 +6,7 @@
 /*   By: nseon <nseon@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:14:35 by nseon             #+#    #+#             */
-/*   Updated: 2024/12/12 14:57:39 by nseon            ###   ########.fr       */
+/*   Updated: 2024/12/12 15:25:30 by nseon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,3 @@ char	*get_next_line(int fd)
 	}
 	return (line(i, &left));
 }
-
-//#include <fcntl.h>
-//
-//int	main()
-//{
-//	int	fd;
-//	size_t	i;
-//	char	*tab;
-//
-//	fd = open("t.txt", O_RDONLY);
-//	tab = get_next_line(fd);
-//	i = 0;
-//	while (tab)
-//	{
-//		printf("%zu: %s",i, tab);
-//		free(tab);
-//		tab = get_next_line(fd);
-//		i++;
-//	}
-//	free(tab);
-//	return (0);
-//}
